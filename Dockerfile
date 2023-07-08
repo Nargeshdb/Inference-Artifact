@@ -17,7 +17,7 @@ RUN apt-get update && \
     update-ca-certificates -f;
 
 # Install required softwares (curl & zip & wget)
-RUN apt install curl
+RUN apt install curl -y
 RUN apt install zip -y
 RUN apt install wget -y
 
@@ -31,12 +31,12 @@ RUN apt-get install -y wget unzip git python3 python3-pip
 RUN apt-get install -y git
 
 # Install Maven
-ARG MAVEN_VERSION=3.6.3
-ARG SHA=c35a1803a6e70a126e80b2b3ae33eed961f83ed74d18fcd16909b2d44d7dada3203f1ffe726c17ef8dcca2dcaa9fca676987befeadc9b9f759967a8cb77181c0
+ARG MAVEN_VERSION=3.9.3
+ARG SHA=400fc5b6d000c158d5ee7937543faa06b6bda8408caa2444a9c947c21472fde0f0b64ac452b8cec8855d528c0335522ed5b6c8f77085811c7e29e1bedbb5daa2
 ARG BASE_URL=https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries
 
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && echo "Downlaoding maven" \
+  && echo "Downloading maven" \
   && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
   \
   && echo "Checking download hash" \
@@ -51,12 +51,13 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 
 ENV MAVEN_HOME /usr/share/maven
 
+
 #Install Gradle
 ARG GRADLE_VERSION=6.8.3
 ARG GRADLE_BASE_URL=https://services.gradle.org/distributions
 ARG GRADLE_SHA=7faa7198769f872826c8ef4f1450f839ec27f0b4d5d1e51bade63667cbccd205
 RUN mkdir -p /usr/share/gradle /usr/share/gradle/ref \
-  && echo "Downlaoding gradle hash" \
+  && echo "Downloading gradle hash" \
   && curl -fsSL -o /tmp/gradle.zip ${GRADLE_BASE_URL}/gradle-${GRADLE_VERSION}-bin.zip \
   \
   && echo "Checking download hash" \
@@ -95,6 +96,11 @@ RUN wget https://github.com/github/codeql-cli-binaries/releases/latest/download/
     unzip codeql-linux64.zip && \  
     rm codeql-linux64.zip && \  
     mv codeql /usr/local/bin  
+
+# Clone the CodeQL repository  
+RUN git clone --recursive https://github.com/github/codeql.git /workspace/codeql-repo  
+
+ENV PATH=$PATH:/usr/local/bin/codeql
     
 ## Create a new user
 RUN useradd -ms /bin/bash oopsla && \
@@ -112,11 +118,6 @@ RUN export JAVA_HOME
 ENV JAVA8_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA8_HOME
   
-# Clone the CodeQL repository  
-RUN git clone --recursive https://github.com/github/codeql.git /workspace/codeql-repo  
-
-ENV PATH=$PATH:/usr/local/bin/codeql
-
 # Create CodeQL repositories for Lucene.Net and EF Core
 
 # Clone the Inference repository
