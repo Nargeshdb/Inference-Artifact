@@ -117,6 +117,44 @@ RUN export JAVA_HOME
 
 ENV JAVA8_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA8_HOME
+
+ENV CF_BRANCH oopsla-2023
+ENV CF_REPO https://github.com/Nargeshdb/checker-framework.git
+
+ENV ZK_REPO https://github.com/Nargeshdb/zookeeper.git
+ENV ZK_CMD "mvn --projects zookeeper-server --also-make clean install -DskipTests"
+ENV ZK_CLEAN "mvn clean"
+
+ENV HADOOP_REPO https://github.com/Nargeshdb/hadoop.git
+ENV HADOOP_CMD "mvn --projects hadoop-hdfs-project/hadoop-hdfs --also-make clean compile -DskipTests"
+ENV HADOOP_CLEAN "mvn clean"
+
+ENV HBASE_REPO https://github.com/Nargeshdb/hbase.git
+ENV HBASE_CMD "mvn --projects hbase-server --also-make clean install -DskipTests"
+ENV HBASE_CLEAN "mvn clean"
+
+ENV RLCI_BRANCH main
+ENV RLCI_BRANCH https://github.com/Nargeshdb/rlci-paper.git
+
+# download rlci-paper
+RUN git clone "${RLCI_BRANCH}"
+
+# download ResourceLeakChecker
+RUN git clone "${CF_REPO}"
+
+RUN cd checker-framework \
+    && git checkout "${CF_BRANCH}" \
+    && ./gradlew publishToMavenLocal \
+    && cd ..
+
+# download Zookeeper
+RUN git clone "${ZK_REPO}"
+
+# download Hadoop
+RUN git clone "${HADOOP_REPO}"
+
+# download HBase
+RUN git clone "${HBASE_REPO}"
   
 # Create CodeQL repositories for Lucene.Net and EF Core
 
