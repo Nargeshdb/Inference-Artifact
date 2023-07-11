@@ -155,6 +155,8 @@ RUN git clone "${HADOOP_REPO}"
 
 # download HBase
 RUN git clone "${HBASE_REPO}"
+
+CMD ["/bin/bash"]
   
 # Create CodeQL repositories for Lucene.Net and EF Core
 
