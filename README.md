@@ -33,3 +33,18 @@ To generate the numbers for Table 1, execute the following command:
 ```
 ./table1.sh
 ```
+
+TODO: numbers for @EnsuresCalledMethods(@Calls in the table) is not concistent with the paper --> fix scripts to check if value set of manually written annotaion is subset of inferred annotation value set
+TODO: numbers for @InheritableMustCall(@MustCall in the table) is not concistent with the paper --> fix scripts to not count @InheritableMustCall{} annotations
+
+### Generate Numbers for Table 2
+
+TODO
+
+### Generate Numbers for Table 3
+To generate the numbers for Table 3, execute the following command:
+
+```
+./table1.sh
+```
+TODO: right now time is printed seperately for each iteration, we need to print sum of them
