@@ -102,6 +102,6 @@ with open(o_file, "a") as f:
     f.write(f"Average time for {runs} runs of RLC# with {type} annotations is {avg_elapsed_rlc_n}\n")  
 
 print(f"Total time for {runs} runs of RLC# with {type} annotations is {t_elapsed_rlc_n}")  
-print(f"Average time for {runs} runs of RLC# with {type} annotations is {t_elapsed_rlc_n}")  
+print(f"Average time for {runs} runs of RLC# with {type} annotations is {avg_elapsed_rlc_n}")  
 
 os.remove(RLC)
