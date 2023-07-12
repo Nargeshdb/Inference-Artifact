@@ -1,13 +1,25 @@
 #!/bin/bash
 
-CURDIR=$(pwd)
-RESULTS="${CURDIR}/results"
+# CURDIR=$(pwd)
+# RESULTS="${CURDIR}/results"
 
-if [ -d "${RESULTS}" ]; then
-    rm -rf "${RESULTS}"
-fi
+# if [ -d "${RESULTS}" ]; then
+#     rm -rf "${RESULTS}"
+# fi
 
-mkdir "${RESULTS}"
+# mkdir "${RESULTS}"
+
+cd checker-framework
+git checkout oopsla-2023
+git pull
+
+./gradlew assemble
+export PATH=$CHECKERFRAMEWORK/checker/bin:${PATH}
+./gradlew publishToMavenLocal
+cd ..
+
+JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+export JAVA_HOME
 
 cd zookeeper
 git checkout oopsla-2023-wpi-enabled

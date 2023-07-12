@@ -10,6 +10,12 @@ RUN apt-get update && \
     apt-get install -y openjdk-8-jdk && \
     apt-get install -y ant && \
     apt-get clean;
+    
+# Install Java 11
+#RUN apt-get update && \
+#    apt-get install -y openjdk-11-jdk && \
+#    apt-get install -y ant && \
+#    apt-get clean;
 
 RUN apt-get update && \
     apt-get install ca-certificates-java && \
@@ -53,9 +59,9 @@ ENV MAVEN_HOME /usr/share/maven
 
 
 #Install Gradle
-ARG GRADLE_VERSION=6.8.3
+ARG GRADLE_VERSION=7.4.2
 ARG GRADLE_BASE_URL=https://services.gradle.org/distributions
-ARG GRADLE_SHA=7faa7198769f872826c8ef4f1450f839ec27f0b4d5d1e51bade63667cbccd205
+ARG GRADLE_SHA=29e49b10984e585d8118b7d0bc452f944e386458df27371b49b4ac1dec4b7fda
 RUN mkdir -p /usr/share/gradle /usr/share/gradle/ref \
   && echo "Downloading gradle hash" \
   && curl -fsSL -o /tmp/gradle.zip ${GRADLE_BASE_URL}/gradle-${GRADLE_VERSION}-bin.zip \
@@ -69,7 +75,7 @@ RUN mkdir -p /usr/share/gradle /usr/share/gradle/ref \
   && echo "Cleaning and setting links" \
   && rm -f /tmp/gradle.zip \
   && ln -s /usr/share/gradle/gradle-${GRADLE_VERSION} /usr/bin/gradle
-ENV GRADLE_VERSION 6.8.3
+ENV GRADLE_VERSION 7.4.2
 ENV GRADLE_HOME /usr/bin/gradle
 #ENV GRADLE_USER_HOME /cache
 ENV PATH $PATH:$GRADLE_HOME/bin
@@ -92,15 +98,15 @@ RUN mkdir -p /usr/share/scc \
   && ln -s /usr/share/scc/scc /usr/bin/scc
   
 # Install CodeQL CLI  
-RUN wget https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-linux64.zip && \  
-    unzip codeql-linux64.zip && \  
-    rm codeql-linux64.zip && \  
-    mv codeql /usr/local/bin  
+#RUN wget https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-linux64.zip && \  
+#    unzip codeql-linux64.zip && \  
+#    rm codeql-linux64.zip && \  
+#    mv codeql /usr/local/bin  
 
 # Clone the CodeQL repository  
-RUN git clone --recursive https://github.com/github/codeql.git /workspace/codeql-repo  
+#RUN git clone --recursive https://github.com/github/codeql.git /workspace/codeql-repo  
 
-ENV PATH=$PATH:/usr/local/bin/codeql
+#ENV PATH=$PATH:/usr/local/bin/codeql
     
 ## Create a new user
 RUN useradd -ms /bin/bash oopsla && \
@@ -118,8 +124,26 @@ RUN export JAVA_HOME
 ENV JAVA8_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA8_HOME
 
-ENV CF_BRANCH oopsla-2023
+#ENV JAVA11_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+#RUN export JAVA11_HOME
+
+ENV CF_BRANCH "oopsla-2023"
 ENV CF_REPO https://github.com/Nargeshdb/checker-framework.git
+
+#ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+#RUN export $JAVA_HOME
+
+# download ResourceLeakChecker
+RUN git clone "${CF_REPO}"
+RUN export CHECKERFRAMEWORK=$(pwd)/checker-framework
+
+#RUN cd checker-framework \
+#    && ./gradlew assemble \
+#    export PATH=$CHECKERFRAMEWORK/checker/bin:${PATH}
+
+#RUN git checkout "${CF_BRANCH}" \
+#    && ./gradlew publishToMavenLocal \
+#    && cd ..
 
 ENV ZK_REPO https://github.com/Nargeshdb/zookeeper.git
 ENV ZK_CMD "mvn --projects zookeeper-server --also-make clean install -DskipTests"
@@ -133,19 +157,16 @@ ENV HBASE_REPO https://github.com/Nargeshdb/hbase.git
 ENV HBASE_CMD "mvn --projects hbase-server --also-make clean install -DskipTests"
 ENV HBASE_CLEAN "mvn clean"
 
-ENV RLCI_BRANCH main
+ENV RLCI_BRANCH "main"
 ENV RLCI_BRANCH https://github.com/Nargeshdb/rlci-paper.git
 
 # download rlci-paper
 RUN git clone "${RLCI_BRANCH}"
+RUN cp rlci-paper/inference.sh .
+RUN cp rlci-paper/table1.sh .
 
-# download ResourceLeakChecker
-RUN git clone "${CF_REPO}"
-
-RUN cd checker-framework \
-    && git checkout "${CF_BRANCH}" \
-    && ./gradlew publishToMavenLocal \
-    && cd ..
+#ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+#RUN export JAVA_HOME
 
 # download Zookeeper
 RUN git clone "${ZK_REPO}"
