@@ -164,6 +164,7 @@ ENV RLCI_BRANCH https://github.com/Nargeshdb/rlci-paper.git
 RUN git clone "${RLCI_BRANCH}"
 RUN cp rlci-paper/inference.sh .
 RUN cp rlci-paper/table1.sh .
+RUN cp rlci-paper/table3.sh .
 
 #ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 #RUN export JAVA_HOME
