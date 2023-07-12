@@ -33,6 +33,9 @@ RUN apt-get update -y
 # Install python
 RUN apt-get install -y wget unzip git python3 python3-pip
 
+# Install panda
+RUN pip3 install pandas
+
 # Install git
 RUN apt-get install -y git
 
@@ -96,25 +99,32 @@ RUN mkdir -p /usr/share/scc \
   && echo "Cleaning and setting links" \
   && rm -f /tmp/scc.zip \
   && ln -s /usr/share/scc/scc /usr/bin/scc
+
+# Install dotnet
+
+RUN apt-get update && \
+    apt-get install -y dotnet-sdk-6.0 && \
+    apt-get install -y aspnetcore-runtime-6.0
   
 # Install CodeQL CLI  
-#RUN wget https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-linux64.zip && \  
-#    unzip codeql-linux64.zip && \  
-#    rm codeql-linux64.zip && \  
-#    mv codeql /usr/local/bin  
+RUN wget https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-linux64.zip && \  
+    unzip codeql-linux64.zip && \  
+    rm codeql-linux64.zip && \  
+    mv codeql /usr/local/bin  
 
-# Clone the CodeQL repository  
-#RUN git clone --recursive https://github.com/github/codeql.git /workspace/codeql-repo  
-
-#ENV PATH=$PATH:/usr/local/bin/codeql
-    
+### Clone the CodeQL repository  
+##RUN git clone --recursive https://github.com/github/codeql.git /workspace/codeql-repo  
+##
+##ENV PATH=$PATH:/usr/local/bin/codeql
+##    
 ## Create a new user
+
 RUN useradd -ms /bin/bash oopsla && \
     apt-get install -y sudo && \
     adduser oopsla sudo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER oopsla
-  
+ 
 # Set up a working directory  
 WORKDIR /home/oopsla 
 
@@ -124,62 +134,24 @@ RUN export JAVA_HOME
 ENV JAVA8_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA8_HOME
 
-#ENV JAVA11_HOME /usr/lib/jvm/java-11-openjdk-amd64/
-#RUN export JAVA11_HOME
+RUN sudo chown -R oopsla:oopsla /home/oopsla 
 
-ENV CF_BRANCH "oopsla-2023"
-ENV CF_REPO https://github.com/Nargeshdb/checker-framework.git
+# Clone the CodeQL repository  
+RUN git clone --recursive https://github.com/github/codeql.git /home/oopsla/codeql-repo  
 
-#ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
-#RUN export $JAVA_HOME
+ENV PATH=$PATH:/usr/local/bin/codeql
 
-# download ResourceLeakChecker
-RUN git clone "${CF_REPO}"
-RUN export CHECKERFRAMEWORK=$(pwd)/checker-framework
+# Copying all the scripts and manually added attributes
 
-#RUN cd checker-framework \
-#    && ./gradlew assemble \
-#    export PATH=$CHECKERFRAMEWORK/checker/bin:${PATH}
-
-#RUN git checkout "${CF_BRANCH}" \
-#    && ./gradlew publishToMavenLocal \
-#    && cd ..
-
-ENV ZK_REPO https://github.com/Nargeshdb/zookeeper.git
-ENV ZK_CMD "mvn --projects zookeeper-server --also-make clean install -DskipTests"
-ENV ZK_CLEAN "mvn clean"
-
-ENV HADOOP_REPO https://github.com/Nargeshdb/hadoop.git
-ENV HADOOP_CMD "mvn --projects hadoop-hdfs-project/hadoop-hdfs --also-make clean compile -DskipTests"
-ENV HADOOP_CLEAN "mvn clean"
-
-ENV HBASE_REPO https://github.com/Nargeshdb/hbase.git
-ENV HBASE_CMD "mvn --projects hbase-server --also-make clean install -DskipTests"
-ENV HBASE_CLEAN "mvn clean"
-
-ENV RLCI_BRANCH "main"
-ENV RLCI_BRANCH https://github.com/Nargeshdb/rlci-paper.git
-
-# download rlci-paper
-RUN git clone "${RLCI_BRANCH}"
-RUN cp rlci-paper/inference.sh .
-RUN cp rlci-paper/table1.sh .
-
-#ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
-#RUN export JAVA_HOME
-
-# download Zookeeper
-RUN git clone "${ZK_REPO}"
-
-# download Hadoop
-RUN git clone "${HADOOP_REPO}"
-
-# download HBase
-RUN git clone "${HBASE_REPO}"
-
-CMD ["/bin/bash"]
-  
-# Create CodeQL repositories for Lucene.Net and EF Core
-
-# Clone the Inference repository
 ##RUN git clone https://github.com/microsoft/global-resource-leaks-codeql.git
+RUN mkdir scripts 
+COPY scripts scripts
+RUN sudo chown -R oopsla:oopsla scripts && chmod -R +x scripts/* 
+
+RUN mkdir /home/oopsla/codeql-repo/csharp/ql/src/RLC-Codeql-Queries 
+COPY RLC-Codeql-Queries /home/oopsla/codeql-repo/csharp/ql/src/RLC-Codeql-Queries
+RUN sudo chown -R oopsla:oopsla /home/oopsla/codeql-repo/csharp/ql/src/RLC-Codeql-Queries && chmod -R +x /home/oopsla/codeql-repo/csharp/ql/src/RLC-Codeql-Queries/* 
+
+RUN mkdir docs 
+COPY docs docs 
+RUN sudo chown -R oopsla:oopsla docs && chmod -R +x docs/* 
