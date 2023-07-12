@@ -45,6 +45,6 @@ TODO
 To generate the numbers for Table 3, execute the following command:
 
 ```
-./table1.sh
+./table3.sh
 ```
 TODO: right now time is printed seperately for each iteration, we need to print sum of them
