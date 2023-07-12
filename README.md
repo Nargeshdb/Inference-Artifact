@@ -47,4 +47,4 @@ To generate the numbers for Table 3, execute the following command:
 ```
 ./table3.sh
 ```
-TODO: right now time is printed seperately for each iteration, we need to print sum of them
+TODO: right now time is printed seperately for each iteration --> print the total time
