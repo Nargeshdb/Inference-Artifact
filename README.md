@@ -50,10 +50,9 @@ python3 scripts/createCodeQLDB.py
 Table 1 in our paper presents the percentage of hand-written annotations that our algorithm was able to infer.
 You can reproduce Table 1 by executing the `csharp-table1.py` script. This script runs the CodeQL query for Inference on both benchmarks and compares the inferred annotations from the query with the manually added annotations (available in the docs directory). The output format is identical to that in the paper. Generating the results takes approximately 20-22 minutes. 
 The output is shown on stdout and is also saved in the file `~/csharp/results/overall-results/table1.txt`.
-
-Note that there was a bug in the script that counted the number of `MustCall` annotations on class. The updated script gives the correct numbers (which is one less than the hand-written annotations for each benchmark). Also, for EF Core, one of the Non-ReadOnly field was counted as ReadOnly. This will be reflected by the difference in numbers in the second and third column in Table 1 for EF Core. We will update these changes in the revised version of the paper. The numbers do not change for proprietary C# microservices. 
 ```python
 python3 scripts/csharp-table1.py
+
 ```
 ### Reproducing Table 2
 
@@ -64,15 +63,14 @@ To reproduce Table 2, execute the `csharp-table2.py` script. This script runs RL
 python3 scripts/csharp-table2.py
 ```
 RLC# warnings for each benchmark can be found in `csharp-results/rlc/<db-name>-rlc-warnings-with-no-annotations.csv` and `csharp-results/rlc/<db-name>-rlc-warnings-with-inferred-annotations.csv` for the two settings.
+
 ### Reproducing Table 3 
 
-In our paper, Table 3 presents the performance of Inference and checking. To reproduce Table 3, execute the `csharp-table3.py` script. 
-This script executes Inference and RLC# with the inferred annotations for a total of three runs, recording the average runtime for each query and benchmark. The output of this script generates Table 3, excluding the kLoC column. It takes approximately 8.5 hours for the script to produce results for both benchmarks. 
+In our paper, Table 3 presents the performance of Inference and checking. To reproduce Table 3, execute the `csharp-table3.py` script. This script executes Inference and RLC# with the inferred annotations for a total of three runs, recording the average runtime for each query and benchmark. The output of this script generates Table 3, excluding the kLoC column. It takes approximately 8.5 hours for the script to produce results for both benchmarks. 
 The output is shown on stdout and is also saved in the file `~/csharp/results/overall-results/table3.txt`.
 ```python
 python3 scripts/csharp-table3.py
 ```
-
 ## Evaluating Inference and Resource Leak Checker on Various C# Benchmarks
 
 You can test both Inference and RLC# on benchmarks that are not included with this artifact.
