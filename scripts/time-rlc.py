@@ -94,8 +94,8 @@ for i in range(1, runs + 1):
 
 avg_total_time = total_time / runs
 
-t_elapsed_rlc_n = f"Elapsed: {int(total_time // 3600)}hrs {int((total_time % 3600) // 60)}min {int(total_time % 60)}sec"  
-avg_elapsed_rlc_n = f"Elapsed: {int(avg_total_time // 3600)}hrs {int((avg_total_time % 3600) // 60)}min {int(avg_total_time % 60)}sec"  
+t_elapsed_rlc_n = f"{int(total_time // 3600)}hrs {int((total_time % 3600) // 60)}min {int(total_time % 60)}sec"  
+avg_elapsed_rlc_n = f"{int(avg_total_time // 3600)}hrs {int((avg_total_time % 3600) // 60)}min {int(avg_total_time % 60)}sec"  
 
 with open(o_file, "a") as f:  
     f.write(f"Total time for {runs} runs of RLC# with {type} annotations is {t_elapsed_rlc_n}\n")  
