@@ -164,6 +164,7 @@ ENV RLCI_BRANCH https://github.com/Nargeshdb/rlci-paper.git
 RUN git clone "${RLCI_BRANCH}"
 RUN cp rlci-paper/inference.sh .
 RUN cp rlci-paper/table1.sh .
+RUN cp rlci-paper/rlc-perf.sh .
 RUN cp rlci-paper/table3.sh .
 
 #ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
@@ -171,12 +172,25 @@ RUN cp rlci-paper/table3.sh .
 
 # download Zookeeper
 RUN git clone "${ZK_REPO}"
+RUN cd zookeeper \
+    && git checkout oopsla-2023-wpi-enabled \
+    && cp typecheck.out zk_inf_typecheck.out
+    && cd ..
+
 
 # download Hadoop
 RUN git clone "${HADOOP_REPO}"
+RUN cd hadoop \
+    && git checkout oopsla-2023-wpi-enabled \
+    && cp typecheck.out hadoop_inf_typecheck.out
+    && cd ..
 
 # download HBase
 RUN git clone "${HBASE_REPO}"
+RUN cd hbase \
+    && git checkout oopsla-2023-wpi-enabled \
+    && cp typecheck.out hbase_inf_typecheck.out
+    && cd ..
 
 CMD ["/bin/bash"]
   
