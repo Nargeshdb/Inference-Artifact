@@ -20,7 +20,7 @@ This command will log you into a bash shell inside the Docker container as the o
 
 ### Generate Inference Output
 
-If you only wish to run the scripts and view the numbers reported in the tables without going through the entire artifact, you can skip this section. Otherwise, to generate the inference output, run the following command:
+If you only want to run the scripts and view the numbers reported in the tables without going through the entire artifact, you can skip this section. Otherwise, to generate the inference output, run the following command:
 
 ```
 ./inference.sh
@@ -42,9 +42,17 @@ TODO: numbers for @InheritableMustCall(@MustCall in the table) is not concistent
 TODO
 
 ### Generate Numbers for Table 3
+
+If you only want to run the scripts and view the numbers reported in the table 3 for the verification time column, skip this step. Otherwise, execute the following command to run the Resource Leak Checker on each benchmark. 
+
+```
+./rlc-perf.sh
+```
+
 To generate the numbers for Table 3, execute the following command:
 
 ```
 ./table3.sh
 ```
-TODO: right now time is printed seperately for each iteration --> print the total time
+
+**Note**: Numbers reported in table 3 are generated on a machine with a 12th Gen Intel Core i-7-12700 Processor, which has 20 cores, and 32 GB of RAM to report number in the paper. Performance of the inference algorithm and Resource Leak Checker on the Docker container might be slightly different compared to those reported in the paper.
