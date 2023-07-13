@@ -174,7 +174,7 @@ RUN cp rlci-paper/table3.sh .
 RUN git clone "${ZK_REPO}"
 RUN cd zookeeper \
     && git checkout oopsla-2023-wpi-enabled \
-    && cp typecheck.out zk_inf_typecheck.out
+    && cp typecheck.out zk_inf_typecheck.out \
     && cd ..
 
 
@@ -182,14 +182,14 @@ RUN cd zookeeper \
 RUN git clone "${HADOOP_REPO}"
 RUN cd hadoop \
     && git checkout oopsla-2023-wpi-enabled \
-    && cp typecheck.out hadoop_inf_typecheck.out
+    && cp typecheck.out hadoop_inf_typecheck.out \
     && cd ..
 
 # download HBase
 RUN git clone "${HBASE_REPO}"
 RUN cd hbase \
     && git checkout oopsla-2023-wpi-enabled \
-    && cp typecheck.out hbase_inf_typecheck.out
+    && cp typecheck.out hbase_inf_typecheck.out \
     && cd ..
 
 CMD ["/bin/bash"]
