@@ -63,6 +63,7 @@ To reproduce Table 2, execute the `csharp-table2.py` script. This script runs RL
 ```python
 python3 scripts/csharp-table2.py
 ```
+RLC# warnings for each benchmark can be found in `csharp-results/rlc/<db-name>-rlc-warnings-with-no-annotations.csv` and `csharp-results/rlc/<db-name>-rlc-warnings-with-inferred-annotations.csv` for the two settings.
 ### Reproducing Table 3 
 
 In our paper, Table 3 presents the performance of Inference and checking. To reproduce Table 3, execute the `csharp-table3.py` script. 
