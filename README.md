@@ -36,6 +36,7 @@ To generate the numbers for Table 1, execute the following command:
 ./table1.sh
 ```
 
+**Note**: There are two discrepancies between the results presented in the paper. Firs, in the paper, we made a manual effort to separate @Owning annotations into three different categories: @Owning annotations on final fields, non-final fields, and params. However, by running this script, you can observe the total count of @Owning annotations in all three categories for each benchmark. Second, in the Java implementation, the annotation referred to as @Calls in the paper is named @EnsuresCalledMethods, and the annotation referred to as @MustCall in the paper is named @InheritableMustCall.
 TODO(MS): will it be completely obvious how the output of the script corresponds to the table?  If not, give some guidance.
 TODO: numbers for @EnsuresCalledMethods(@Calls in the table) is not concistent with the paper --> fix scripts to check if value set of manually written annotaion is subset of inferred annotation value set
 TODO: numbers for @InheritableMustCall(@MustCall in the table) is not concistent with the paper --> fix scripts to not count @InheritableMustCall{} annotations
