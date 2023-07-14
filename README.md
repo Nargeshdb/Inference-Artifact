@@ -41,8 +41,6 @@ To generate the numbers for Table 1, execute the following command:
 
 
 TODO(MS): will it be completely obvious how the output of the script corresponds to the table?  If not, give some guidance.
-TODO: numbers for @EnsuresCalledMethods(@Calls in the table) is not concistent with the paper --> fix scripts to check if value set of manually written annotaion is subset of inferred annotation value set
-TODO: numbers for @InheritableMustCall(@MustCall in the table) is not concistent with the paper --> fix scripts to not count @InheritableMustCall{} annotations
 
 ### Generate Numbers for Table 2
 
