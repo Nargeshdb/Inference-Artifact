@@ -1,6 +1,6 @@
 # Artifact for "Inference of Resource Management Specifications" (OOPSLA 2023)
 
-This README.md file provides information about the artifact for "Inference of Resource Management Specifications." The artifact includes the implementation of the tool called "Resource Leak Inference" (TODO(MS): Is this how we refer to the Java implementation of inference somewhere?) and the case study programs used in the experiments described in section 5 of the paper.  (TODO(MS): should we say this document / Docker container contains only the Java implementation?)
+This README.md file provides information about the artifact for "Inference of Resource Management Specifications." The artifact includes the implementation of our inference algorithm and the case study programs used in the experiments described in section 5 of the paper.  This document contains the instruction to reproduce numbers reported for the Java implementation.
 
 TODO(MS): be clear about which version of the paper this artifact validates, if needed.  (I'm not sure if we need to submit a version of the paper with the artifact or not.)
 
@@ -58,6 +58,6 @@ To generate the numbers for Table 3, execute the following command:
 ./table3.sh
 ```
 
-TODO(MS): will it be completely obvious how the output of the script corresponds to the table?  If not, give some guidance.
+TODO(MS): will it be completely obvious how the output of the script corresponds to the table?  If not, give some guidance. (NS) This part is clear I think! The output contains all the information mentioned in the paper.
 
 **Note**: The numbers reported in Table 3 were generated on a machine with a 12th Gen Intel Core i-7-12700 Processor with 20 cores and 32 GB of RAM. Performance of the inference algorithm and Resource Leak Checker on the Docker container might be different compared to those reported in the paper.
