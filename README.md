@@ -56,7 +56,7 @@ If you only want to run the scripts and view the numbers reported in the table 3
 ./rlc-perf.sh
 ```
 
-To generate the numbers for Table 3, execute the following command:
+Numbers reported in the first column of table 3 is borrowed from the "Lightweight and Modular Resource Leak Checker" paper because we were running our experiment on the same module. To generate the numbers for column 2 and 3 of Table 3, execute the following command:
 
 ```
 ./table3.sh
