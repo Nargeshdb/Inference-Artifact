@@ -2,7 +2,7 @@
 
 This README.md file provides information about the artifact for "Inference of Resource Management Specifications." The artifact includes the implementation of our inference algorithm for both the Java and C# languages. It is provided with two separate Docker containers to facilitate easy reproduction. Each container contains the respective implementations and the case study programs used in the experiments described in Section 5 of the revise version of the paper which is uploaded in the artifact.
 
-To access the artifact, you can find it on Zenodo TODO. To get started, please follow the instructions below:
+To access the artifact, you can find it on [Zenodo](https://doi.org/10.5281/zenodo.8149274). To get started, please follow the instructions below:
 
 # Java Implementation
 
@@ -14,7 +14,7 @@ Before running the artifact, make sure you have Docker installed on your machine
 
 ### Running the Artifact
 
-To run the artifact, you need to download the artifact from here(TODO), then execute the following command:
+To run the artifact, you need to download the artifact from [here](https://doi.org/10.5281/zenodo.8149274), then execute the following command:
 
 ```
 gunzip -c path/to/resource_leak_inference.tar.gz > resource_leak_inference.tar
