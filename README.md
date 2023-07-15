@@ -24,7 +24,7 @@ docker run -it nargeshdb/resource_leak_inference:latest
 
 This command will log you into a bash shell inside the Docker container as the oopsla user, with the current working directory set to `/home/oopsla`. All the relevant code and scripts are located within this directory.
 
-#### Kicking the tires
+### Kicking the tires
 If you just want to make sure that everything **can** run, we suggest running
 the following commands. Load the docker image following the commands above.
 
