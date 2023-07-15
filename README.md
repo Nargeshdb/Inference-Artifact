@@ -22,7 +22,22 @@ docker load < resource_leak_inference.tar
 docker run -it nargeshdb/resource_leak_inference:latest
 ```
 
-This command will log you into a bash shell inside the Docker container as the oopsla user, with the current working directory set to /home/oopsla. All the relevant code and scripts are located within this directory.
+This command will log you into a bash shell inside the Docker container as the oopsla user, with the current working directory set to `/home/oopsla`. All the relevant code and scripts are located within this directory.
+
+#### Kicking the tires
+If you just want to make sure that everything **can** run, we suggest running
+the following commands. Load the docker image following the commands above.
+
+Then, within the Docker image in the initial directory (`/home/oopsla`), analyze
+table3.sh: 
+
+```
+./table3.sh
+```
+
+Check that you get a "Results for table 3 is generated" message at the end.
+
+Running this command should take a few minutes on commodity hardware.
 
 ### Generate Inference Output
 
