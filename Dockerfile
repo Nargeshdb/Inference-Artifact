@@ -1,5 +1,5 @@
 # Use the official Ubuntu base image  
-FROM ubuntu:latest  
+FROM ubuntu:22.04
   
 # Update the system and install required packages  
 RUN apt-get update && \  
