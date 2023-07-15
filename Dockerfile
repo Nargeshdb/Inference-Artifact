@@ -165,6 +165,7 @@ RUN git clone "${RLCI_BRANCH}"
 RUN cp rlci-paper/inference.sh .
 RUN cp rlci-paper/table1.sh .
 RUN cp rlci-paper/rlc-perf.sh .
+RUN cp rlci-paper/table2.sh .
 RUN cp rlci-paper/table3.sh .
 
 #ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
