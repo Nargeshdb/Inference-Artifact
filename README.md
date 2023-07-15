@@ -69,8 +69,6 @@ The numbers reported in the first column of Table 3.b are borrowed from the "Lig
 
 **Note**: The numbers reported in Table 3 were generated on a machine with a 12th Gen Intel Core i-7-12700 Processor with 20 cores and 32 GB of RAM. Performance of the inference algorithm and Resource Leak Checker on the Docker container might be different compared to those reported in the paper.
 
-TODO(MS): Do we want to give instructions on how to run RLC inference on other benchmarks?  Perhaps that is much too complicated?
-
 # C\# Implementation
 This section contains the instruction to reproduce numbers reported for the C\# implementation. The Docker image for C\# experiments contains:
 
